@@ -203,14 +203,14 @@ export default function Navbar() {
                   </div>
                 </motion.div>
 
-                {/* Sign Out Button */}
+                {/* Cancel and Signout Button */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1,
                     transition: { delay: 0.5 },
                   }}
-                  className="pt-2 mt-2 border-t border-gray-100 flex justify-between px-4"
+                  className="pt-2 mt-2 border-t border-gray-100 flex justify-between pl-20 pr-10"
                 >
                   <motion.button
                     whileHover={{ scale: 1.02 }}

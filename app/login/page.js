@@ -8,6 +8,7 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BeatLoader } from "react-spinners";
 
 const socialAuthProviders = [
   { name: "Google", icon: "/images/google.png" },
@@ -16,6 +17,7 @@ const socialAuthProviders = [
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -25,6 +27,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true);
       const response = await axios.post("/api/proxy", {
         username: data.username,
         password: data.password,
@@ -51,6 +54,7 @@ export default function Login() {
           redirect: true,
           callbackUrl: "/",
         });
+        setLoading(false);
       } else {
         toast.error("Access token not found!", {
           duration: 2000,
@@ -64,6 +68,7 @@ export default function Login() {
             right: "20px",
           },
         });
+        setLoading(false);
       }
     } catch (error) {
       toast.error("Login failed!", {
@@ -78,13 +83,16 @@ export default function Login() {
           right: "20px",
         },
       });
+      setLoading(false);
     }
     reset();
   };
 
   const OAuthSignIn = async (provider) => {
     try {
+      setLoading(true);
       await signIn(provider, { callbackUrl: "/" });
+      setLoading(false);
     } catch (error) {
       toast.error("Login failed!", {
         duration: 2000,
@@ -98,11 +106,12 @@ export default function Login() {
           right: "20px",
         },
       });
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center bg-white px-4 my-16">
+    <div className="flex items-center justify-center bg-white px-4 my-28">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -183,7 +192,7 @@ export default function Login() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            LOG IN
+            {loading ? <BeatLoader color="#fff" size={10} /> : "Log In"}
           </motion.button>
         </motion.form>
 
