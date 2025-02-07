@@ -1,101 +1,200 @@
-import Image from "next/image";
+"use client";
+
+import { easeIn, motion } from "framer-motion";
+import { Code, Palette, Globe, Zap, Users, MessageSquare } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const services = [
+    {
+      icon: Code,
+      title: "Custom Development",
+      desc: "Tailored solutions that perfectly match your business needs",
+    },
+    {
+      icon: Palette,
+      title: "UI/UX Design",
+      desc: "Beautiful, intuitive interfaces that users love to interact with",
+    },
+    {
+      icon: Globe,
+      title: "Web Applications",
+      desc: "Powerful, scalable apps that drive business growth",
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const features = [
+    {
+      icon: Zap,
+      title: "Lightning Fast",
+      desc: "Optimized performance for the best user experience",
+    },
+    {
+      icon: Users,
+      title: "Client-Focused",
+      desc: "Your success is our top priority",
+    },
+    {
+      icon: MessageSquare,
+      title: "24/7 Support",
+      desc: "Always here when you need us",
+    },
+  ];
+
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 },
+  };
+
+  return (
+    <main className="bg-white max-w-7xl w-full xl:mx-auto mx-none">
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center md:my-24 my-16 ">
+        <motion.h1
+          className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 px-2 md:px-0"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          whileInView={{ opacity: 1 }}
+        >
+          DESIGNING WEBSITES THAT 
+          <br className="hidden md:block" />
+          &nbsp;TELL YOUR STORY
+        </motion.h1>
+
+        <motion.div
+          className="space-y-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: "easeInOut" }}
+          whileInView={{ opacity: 1 }}
+        >
+          <h2 className="text-xl md:text-2xl lg:text-3xl px-2 md:px-0">
+            <span className="text-[#E85C3F]">ACHIEVE BUSINESS</span> GROWTH WITH
+            THE STRENGTH
+            <br />
+            OF OUR WEB SERVICE
+          </h2>
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17, ease:"easeInOut" }}
+            whileInView={{ opacity: 1 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <Link href="/about" prefetch={true}>
+              <button className="mt-8 px-8 py-3 border-2 border-[#E85C3F] text-[#E85C3F] rounded-full hover:bg-[#E85C3F] hover:text-white transition-colors duration-200">
+                <span>SEE HOW</span>
+              </button>
+            </Link>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Services Section */}
+      <section className="md:py-20 py-12 bg-gray-50 px-4">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut", delay:0.6 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          Our Web Development Services
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              {...fadeIn}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6}}
+              whileHover={{
+                scale: 1.05,
+                y: -10,
+              }}
+            >
+              <service.icon className="md:w-12 md:h-12 w-8 h-8 text-[#E85C3F] mb-4" />
+              <h3 className="md:text-xl text-2xl font-bold mb-2">
+                {service.title}
+              </h3>
+              <p className="text-gray-600 md:text-base text-lg">
+                {service.desc}
+              </p>
+            </motion.div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 max-w-7xl mx-auto px-4">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          Why Choose Web Pundit?
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              className="text-center"
+              {...fadeIn}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+              whileHover={{
+                scale: 1.05,
+                y: -10,
+              }}
+            >
+              <feature.icon className="md:w-16 md:h-16 w-10 h-10 text-[#E85C3F] mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+              <p className="text-gray-600">{feature.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Get started Section */}
+      <section className="w-full bg-[#E85C3F]">
+        <div className="max-w-7xl px-4 py-20 text-center text-white">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold mb-4"
+            {...fadeIn}
+          >
+            Ready to Start Your Project?
+          </motion.h2>
+          <motion.p className="mb-8" {...fadeIn} transition={{ delay: 0.2 }}>
+            Let&apos;s create something amazing together. Get in touch with us
+            today.
+          </motion.p>
+          <motion.div {...fadeIn} transition={{ delay: 0.3 }}>
+            <Link
+              href="/contact"
+              className="bg-white text-[#E85C3F] px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition-colors duration-200"
+            >
+              Get Started
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Background Animation */}
+      <motion.div
+        className="fixed inset-0 -z-10 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.3 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      />
+    </main>
   );
 }
