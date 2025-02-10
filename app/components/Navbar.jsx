@@ -26,22 +26,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (status === "authenticated" && !localStorage.getItem("loginSuccess")) {
-      toast.success(
-        "Logged In!",
-        {
-          duration: 3000,
-          style: {
-            borderRadius: "10px",
-            background: "#121212",
-            color: "#fff",
-            fontFamily: "sans-serif",
-            position: "relative",
-            top: "80px",
-            right: "20px",
-          },
-        },
-        1500
-      );
+      toast.success("Logged In !!", { duration: 3000 }, 1500);
       localStorage.setItem("loginSuccess", "true");
     }
   }, [status]);
@@ -49,18 +34,7 @@ export default function Navbar() {
   const handleSignOut = async () => {
     setIsSignOutOpen(false);
     localStorage.removeItem("loginSuccess");
-    toast.success("Logged Out !!", {
-      duration: 3500,
-      style: {
-        borderRadius: "10px",
-        background: "#121212",
-        color: "#fff",
-        fontFamily: "sans-serif",
-        position: "relative",
-        top: "80px",
-        right: "20px",
-      },
-    });
+    toast.success("Logged Out !!", { duration: 3500 });
     await signOut({ callbackUrl: "/" });
   };
 

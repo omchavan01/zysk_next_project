@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js 15 App Router Project
 
-## Getting Started
+## 🚀 Project Overview
 
-First, run the development server:
+This is a **Next.js 15** application using the **App Router** in JavaScript. The project includes user authentication with **NextAuth**, dynamic routing, API integration and . It follows best practices with modular folder structures and middleware for secure routes.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🔥 Features
+
+- ✅ **App Router:** Modern routing system in Next.js 15
+- ✅ **Data Fetching & Caching:** Axios & TanStack Query
+- ✅ **Blogs Section:** Dynamic blog pages with pagination (DummyJSON API)
+- ✅ **Specific Blog Section:** Specific blog page based on [slug] from main blogs page
+- ✅ **Contact Form Integration:** Sends data to email & spreadsheet via AppScript
+- ✅ **Authentication:** Credentials & OAuth (Google, GitHub) using NextAuth v14
+- ✅ **Middleware:** Protected routes based on authentication status
+- ✅ **Toast Notifications:** react-hot-toast for feedback
+
+## 🛠️ Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```sh
+git clone https://github.com/omchavan01/zysk_next_project.git
+cd zysk_next_project
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Install Dependencies
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```sh
+ npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3️⃣ Configure Environment Variables
 
-## Learn More
+Create a `.env` file and add the following:
 
-To learn more about Next.js, take a look at the following resources:
+```
+NEXTAUTH_URL = http://localhost:3000
+NEXTAUTH_SECRET = your_secret_key
+GOOGLE_ID = your_google_id
+GOOGLE_SECRET = your_google_secret
+GITHUB_ID = your_github_id
+GITHUB_SECRET = your_github_secret
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4️⃣ Run the Development Server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+npm run dev
+```
 
-## Deploy on Vercel
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📌 Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔑 Authentication
+
+- Users can log in via **credentials (email/password)** or **OAuth (Google/GitHub)**.
+- Sessions are managed with **NextAuth**.
+- Middleware protects certain routes from unauthorized access.
+
+### 📄 Blogs with Pagination
+
+- Fetches blog data from **DummyJSON API**.
+- Displays paginated blogs in the main blogs page
+- Displays a specific blog with dynamic routing (`/blogs/[slug]`).
+
+### 📩 Contact Form Integration
+
+- Sends form data to **Google Sheets & Email** via **Google Apps Script**.
+- Uses **react-hot-toast** for success/error messages.

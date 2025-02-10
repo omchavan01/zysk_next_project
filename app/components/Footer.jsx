@@ -95,7 +95,9 @@ export default function Footer() {
                   >
                     <Link
                       href={link.href}
-                      target={link.href.startsWith("https") ? "_blank" : "_self"}
+                      target={
+                        link.href.startsWith("https") ? "_blank" : "_self"
+                      }
                       className="py-1 hover:border-b-2 hover:border-b-[#E85C3F] transition-all duration-300"
                     >
                       {link.name}
@@ -116,7 +118,8 @@ export default function Footer() {
         transition={{ duration: 0.5, delay: 0.6 }}
       >
         <span className="text-sm text-gray-500 dark:text-gray-300">
-          © 2025 <Link href="#">Zysk Technologies™</Link>. All Rights Reserved.
+          © 2025 <Link href="#">Zysk Technologies™</Link>. All Rights
+          Reserved.
         </span>
       </motion.div>
     </footer>

@@ -56,33 +56,11 @@ export default function Login() {
         });
         setLoading(false);
       } else {
-        toast.error("Access token not found!", {
-          duration: 2000,
-          style: {
-            borderRadius: "10px",
-            background: "#121212",
-            color: "#fff",
-            fontFamily: "sans-serif",
-            position: "relative",
-            top: "80px",
-            right: "20px",
-          },
-        });
+        toast.error("Access token not found!", { duration: 2000 });
         setLoading(false);
       }
     } catch (error) {
-      toast.error("Login failed!", {
-        duration: 2000,
-        style: {
-          borderRadius: "10px",
-          background: "#121212",
-          color: "#fff",
-          fontFamily: "sans-serif",
-          position: "relative",
-          top: "80px",
-          right: "20px",
-        },
-      });
+      toast.error("Login failed!", { duration: 2000 });
       setLoading(false);
     }
     reset();
@@ -94,18 +72,7 @@ export default function Login() {
       await signIn(provider, { callbackUrl: "/" });
       setLoading(false);
     } catch (error) {
-      toast.error("Login failed!", {
-        duration: 2000,
-        style: {
-          borderRadius: "10px",
-          background: "#121212",
-          color: "#fff",
-          fontFamily: "sans-serif",
-          position: "relative",
-          top: "80px",
-          right: "20px",
-        },
-      });
+      toast.error("Login failed!", { duration: 2000 });
       setLoading(false);
     }
   };

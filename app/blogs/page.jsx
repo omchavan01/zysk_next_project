@@ -28,7 +28,7 @@ export default function Blog() {
       const [_key, pageNumber] = queryKey;
       const skip = (pageNumber - 1) * limit;
       const { data } = await axios.get(
-        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`
+        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`,
       );
       return data.posts;
     } catch (error) {
@@ -71,12 +71,6 @@ export default function Blog() {
     }
 
     return [...Array(end - start + 1)].map((_, index) => start + index);
-  };
-
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
   };
 
   return (
@@ -133,7 +127,7 @@ export default function Blog() {
                         onClick={() => {
                           localStorage.setItem(
                             "image",
-                            JSON.stringify(randomImage)
+                            JSON.stringify(randomImage),
                           );
                         }}
                         className="bg-[#E85C3F] text-white px-6 py-2 rounded-full hover:bg-[#d54e34] transition-colors duration-200"

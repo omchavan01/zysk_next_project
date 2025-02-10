@@ -193,7 +193,7 @@ export default function BlogSlug() {
                               localStorage.removeItem("image");
                               localStorage.setItem(
                                 "image",
-                                JSON.stringify(randomImage)
+                                JSON.stringify(randomImage),
                               );
                             }}
                             className="bg-[#E85C3F] text-white px-6 py-2 rounded-full hover:bg-[#d54e34] transition-colors duration-200"

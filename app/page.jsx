@@ -3,54 +3,57 @@
 import { easeIn, motion } from "framer-motion";
 import { Code, Palette, Globe, Zap, Users, MessageSquare } from "lucide-react";
 import Link from "next/link";
+import FeaturesCards from "./components/FeaturesCards";
 
 export default function Home() {
   const services = [
     {
-      icon: Code,
+      icon: <Code className="md:w-12 md:h-12 w-8 h-8" />,
       title: "Custom Development",
-      desc: "Tailored solutions that perfectly match your business needs",
+      description:
+        "Tailored solutions that perfectly match your business needs",
     },
     {
-      icon: Palette,
+      icon: <Palette className="md:w-12 md:h-12 w-8 h-8" />,
       title: "UI/UX Design",
-      desc: "Beautiful, intuitive interfaces that users love to interact with",
+      description:
+        "Beautiful, intuitive interfaces that users love to interact with",
     },
     {
-      icon: Globe,
+      icon: <Globe className="md:w-12 md:h-12 w-8 h-8" />,
       title: "Web Applications",
-      desc: "Powerful, scalable apps that drive business growth",
+      description: "Powerful, scalable apps that drive business growth",
     },
   ];
 
   const features = [
     {
-      icon: Zap,
+      icon: <Zap className="md:w-16 md:h-16 w-10 h-10 mx-auto" />,
       title: "Lightning Fast",
-      desc: "Optimized performance for the best user experience",
+      description: "Optimized performance for the best user experience",
     },
     {
-      icon: Users,
+      icon: <Users className="md:w-16 md:h-16 w-10 h-10 mx-auto" />,
       title: "Client-Focused",
-      desc: "Your success is our top priority",
+      description: "Your success is our top priority",
     },
     {
-      icon: MessageSquare,
+      icon: <MessageSquare className="md:w-16 md:h-16 w-10 h-10 mx-auto" />,
       title: "24/7 Support",
-      desc: "Always here when you need us",
+      description: "Always here when you need us",
     },
   ];
 
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
     whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
   };
 
   return (
-    <main className="bg-white max-w-7xl w-full xl:mx-auto mx-none">
+    <main className="bg-white max-w-7xl w-full mx-auto md:px-2">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center md:my-24 my-16 ">
+      <section className="flex flex-col items-center justify-center text-center md:my-24 my-16">
         <motion.h1
           className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 px-2 md:px-0"
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +61,7 @@ export default function Home() {
           transition={{ duration: 0.6, ease: "easeInOut" }}
           whileInView={{ opacity: 1 }}
         >
-          DESIGNING WEBSITES THAT 
+          DESIGNING WEBSITES THAT
           <br className="hidden md:block" />
           &nbsp;TELL YOUR STORY
         </motion.h1>
@@ -80,7 +83,12 @@ export default function Home() {
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17, ease:"easeInOut" }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 17,
+              ease: "easeInOut",
+            }}
             whileInView={{ opacity: 1 }}
           >
             <Link href="/about" prefetch={true}>
@@ -96,10 +104,8 @@ export default function Home() {
       <section className="md:py-20 py-12 bg-gray-50 px-4">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut", delay:0.6 }}
-          whileInView={{ opacity: 1 }}
+          {...fadeIn}
+          transition={{ duration: 0.6, ease: "easeInOut", delay: 0.6 }}
           viewport={{ once: true }}
         >
           Our Web Development Services
@@ -107,25 +113,11 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <motion.div
+            <FeaturesCards
               key={index}
+              {...service}
               className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              {...fadeIn}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6}}
-              whileHover={{
-                scale: 1.05,
-                y: -10,
-              }}
-            >
-              <service.icon className="md:w-12 md:h-12 w-8 h-8 text-[#E85C3F] mb-4" />
-              <h3 className="md:text-xl text-2xl font-bold mb-2">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 md:text-base text-lg">
-                {service.desc}
-              </p>
-            </motion.div>
+            />
           ))}
         </div>
       </section>
@@ -134,10 +126,8 @@ export default function Home() {
       <section className="py-20 max-w-7xl mx-auto px-4">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          {...fadeIn}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
           Why Choose Web Pundit?
@@ -145,21 +135,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              className="text-center"
-              {...fadeIn}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
-              whileHover={{
-                scale: 1.05,
-                y: -10,
-              }}
-            >
-              <feature.icon className="md:w-16 md:h-16 w-10 h-10 text-[#E85C3F] mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.desc}</p>
-            </motion.div>
+            <FeaturesCards key={index} {...feature} className="text-center" />
           ))}
         </div>
       </section>

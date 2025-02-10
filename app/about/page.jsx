@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Users, Rocket, Heart } from "lucide-react";
 import CountUp from "react-countup";
+import FeaturesCards from "../components/FeaturesCards";
 
 export default function About() {
   const features = [
@@ -32,6 +33,12 @@ export default function About() {
     { number: 95, label: "Client Satisfaction" },
   ];
 
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 },
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-20">
       {/* About Web Pundit */}
@@ -52,23 +59,11 @@ export default function About() {
       </motion.div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-28">
         {features.map((card, index) => (
-          <motion.div
+          <FeaturesCards
             key={index}
+            {...card}
             className="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            whileHover={{
-              scale: 1.05,
-              y: -10,
-            }}
-          >
-            <div className="text-[#E85C3F] mb-4">{card.icon}</div>
-            <h3 className="text-xl font-semibold mb-2">{card.title}</h3>
-            <p className="text-gray-600">{card.description}</p>
-          </motion.div>
+          />
         ))}
       </div>
 
