@@ -10,12 +10,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { BeatLoader } from "react-spinners";
 
+// Social auth providers
 const socialAuthProviders = [
   { name: "Google", icon: "/images/google.png" },
   { name: "GitHub", icon: "/images/github.png" },
 ];
 
-export default function Login() {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const {
@@ -33,21 +34,23 @@ export default function Login() {
         password: data.password,
       });
 
-      if (response.data?.accessToken) {
-        const token = response.data.accessToken;
+      if (response?.data?.accessToken) {
+        const token = response?.data?.accessToken;
         const userResponse = await axios.get("https://dummyjson.com/users", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+
         sessionStorage.clear();
         localStorage.clear();
         const details = {
           token: token,
-          username: userResponse.data.username,
-          password: userResponse.data.password,
-          image: userResponse.data.image,
+          username: userResponse?.data?.username,
+          password: userResponse?.data?.password,
+          image: userResponse?.data?.image,
         };
+
         signIn("credentials", {
           isToken: true,
           data: JSON.stringify(details),
@@ -87,7 +90,7 @@ export default function Login() {
         className="w-full max-w-md p-8 rounded-2xl bg-white shadow-lg transition-all"
       >
         <motion.h1
-          className="text-3xl font-bold text-center text-[#E85C3F] mb-6"
+          className="text-3xl font-bold text-center text-light-orange mb-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -110,7 +113,7 @@ export default function Login() {
               type="text"
               className={`w-full px-4 py-3 rounded-lg border ${
                 errors.username ? "border-red-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-[#E85C3F] transition-all duration-200`}
+              } focus:outline-none focus:ring-2 focus:ring-light-orange transition-all duration-200`}
               placeholder="Enter your username"
               autoComplete="off"
               {...register("username", {
@@ -133,7 +136,7 @@ export default function Login() {
                 type={showPassword ? "text" : "password"}
                 className={`w-full px-4 py-3 rounded-lg border ${
                   errors.password ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-[#E85C3F] transition-all duration-200`}
+                } focus:outline-none focus:ring-2 focus:ring-light-orange transition-all duration-200`}
                 placeholder="Enter your password"
                 autoComplete="off"
                 {...register("password", { required: "Password is required" })}
@@ -155,7 +158,7 @@ export default function Login() {
 
           <motion.button
             type="submit"
-            className="w-full py-3 bg-[#E85C3F] text-white rounded-lg font-medium hover:bg-[#D14A2F] transition-colors"
+            className="w-full py-3 bg-light-orange text-white rounded-lg font-medium hover:bg-[#D14A2F] transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -198,4 +201,6 @@ export default function Login() {
       </motion.div>
     </div>
   );
-}
+};
+
+export default Login;

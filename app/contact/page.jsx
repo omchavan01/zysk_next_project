@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
 
-export default function Contact() {
+const Contact = () => {
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -27,7 +27,7 @@ export default function Contact() {
       setLoading(true);
       await axios.post(
         "https://script.google.com/macros/s/AKfycbxfjKkTTdkNHM5QQ6skXcy9-4AUUl7TNACIjZkL1E2x44evnD2StmGqEtsT6AgPbKJ8/exec",
-        formData,
+        formData
       );
       toast.success("Contact Details sent !!");
       setLoading(false);
@@ -46,12 +46,11 @@ export default function Contact() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <span className="text-[#E85C3F] font-semibold">CONTACT</span>
+        <span className="text-light-orange font-semibold">CONTACT</span>
         <h1 className="text-4xl font-bold mt-2">Get in Touch</h1>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-        {/* Contact Form */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -59,15 +58,16 @@ export default function Contact() {
           className="bg-white rounded-lg px-8 shadow-sm order-1 md:order-2"
         >
           <h2 className="text-2xl font-bold mb-6">Ready to Get Started?</h2>
+          {/* Contact Suybmission Form Section start */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <input
                 type="text"
                 placeholder="Your name"
                 autoComplete="off"
-                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-[#E85C3F] ${
+                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-light-orange ${
                   errors.name ? "border-red-500" : "border-gray-300"
-                } focus:ring-[#E85C3F] outline-none`}
+                } focus:ring-light-orange outline-none`}
                 {...register("name", {
                   required: "Name is required",
                   minLength: {
@@ -88,9 +88,9 @@ export default function Contact() {
                 type="email"
                 placeholder="Your email address"
                 autoComplete="off"
-                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-[#E85C3F] ${
+                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-light-orange ${
                   errors.email ? "border-red-500" : "border-gray-300"
-                } focus:ring-[#E85C3F] outline-none`}
+                } focus:ring-light-orange outline-none`}
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -110,9 +110,9 @@ export default function Contact() {
                 placeholder="Write your message..."
                 autoComplete="off"
                 rows={6}
-                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-[#E85C3F] ${
+                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-light-orange ${
                   errors.message ? "border-red-500" : "border-gray-300"
-                } focus:ring-[#E85C3F] outline-none`}
+                } focus:ring-light-orange outline-none`}
                 {...register("message", {
                   required: "Message is required",
                   minLength: {
@@ -130,16 +130,17 @@ export default function Contact() {
             </div>
             <motion.button
               type="submit"
-              className="w-full bg-[#E85C3F] text-white py-3 rounded-lg font-medium hover:bg-[#d54e34] transition outline-none"
+              className="w-full bg-light-orange text-white py-3 rounded-lg font-medium hover:bg-dark-orange transition outline-none"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {loading ? <BeatLoader color="#fff" size={10} /> : "Send Message"}
             </motion.button>
           </form>
+          {/* Contact Suybmission Form Section end */}
         </motion.div>
 
-        {/* Contact Information */}
+        {/* Contact Information section start */}
         <motion.div
           className="flex flex-col justify-start items-center order-2 md:order-1 md:mt-0 mt-12 px-6"
           initial={{ opacity: 0, x: -20 }}
@@ -151,7 +152,7 @@ export default function Contact() {
               We&apos;re here to answer any question you may have.
             </div>
             <div className="flex items-start space-x-4">
-              <div className="bg-[#E85C3F] p-3 rounded-lg">
+              <div className="bg-light-orange p-3 rounded-lg">
                 <MapPin className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -170,7 +171,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="flex items-start space-x-4">
-              <div className="bg-[#E85C3F] p-3 rounded-lg">
+              <div className="bg-light-orange p-3 rounded-lg">
                 <Phone className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -180,7 +181,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="flex items-start space-x-4">
-              <div className="bg-[#E85C3F] p-3 rounded-lg">
+              <div className="bg-light-orange p-3 rounded-lg">
                 <Clock className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -194,7 +195,10 @@ export default function Contact() {
             </div>
           </div>
         </motion.div>
+        {/* Contact Information section ends */}
       </div>
     </div>
   );
-}
+};
+
+export default Contact;

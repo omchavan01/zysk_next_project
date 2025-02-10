@@ -3,40 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { footerLinks } from "./data";
 
-export default function Footer() {
-  const footerLinks = [
-    {
-      title: "Company",
-      links: [
-        { name: "Home", href: "/" },
-        { name: "About Us", href: "/about" },
-        { name: "Blogs", href: "/blogs" },
-      ],
-    },
-    {
-      title: "Help Center",
-      links: [
-        {
-          name: "LinkedIn",
-          href: "https://www.linkedin.com/company/zysktech/",
-        },
-        { name: "Instagram", href: "https://www.instagram.com/zysktech/" },
-        { name: "Contact Us", href: "/contact" },
-      ],
-    },
-    {
-      title: "Legal",
-      links: [
-        { name: "Privacy Policy", href: "https://zysk.tech/privacy-policy/" },
-        {
-          name: "Terms & Conditions",
-          href: "https://zysk.tech/terms-conditions/",
-        },
-      ],
-    },
-  ];
-
+const Footer = () => {
   return (
     <footer className="bg-[#eee] max-w-7xl mx-auto text-center pb-2">
       <motion.div
@@ -98,7 +67,7 @@ export default function Footer() {
                       target={
                         link.href.startsWith("https") ? "_blank" : "_self"
                       }
-                      className="py-1 hover:border-b-2 hover:border-b-[#E85C3F] transition-all duration-300"
+                      className="py-1 hover:border-b-2 hover:border-b-light-orange transition-all duration-300"
                     >
                       {link.name}
                     </Link>
@@ -124,4 +93,6 @@ export default function Footer() {
       </motion.div>
     </footer>
   );
-}
+};
+
+export default Footer;

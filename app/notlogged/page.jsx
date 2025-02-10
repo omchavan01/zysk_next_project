@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export default function Notlogged() {
+const Notlogged = () => {
   return (
     <div className="bg-gray-100 max-w-7xl mx-auto h-screen flex justify-center items-start px-4">
       <div className="w-full max-w-md p-8 rounded-2xl bg-white shadow-lg transition-all mt-20">
         <motion.h1
-          className="text-2xl font-bold text-center text-[#E85C3F] mb-10"
+          className="text-2xl font-bold text-center text-light-orange mb-10"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -26,7 +26,7 @@ export default function Notlogged() {
         >
           <Link
             href="/login"
-            className="text-white text-center bg-[#E85C3F] px-8 py-3 rounded-full text-lg font-semibold transition-colors duration-200"
+            className="text-white text-center bg-light-orange px-8 py-3 rounded-full text-lg font-semibold transition-colors duration-200"
           >
             Try to Login
           </Link>
@@ -34,4 +34,6 @@ export default function Notlogged() {
       </div>
     </div>
   );
-}
+};
+
+export default Notlogged;

@@ -1,57 +1,20 @@
 "use client";
 
-import { easeIn, motion } from "framer-motion";
-import { Code, Palette, Globe, Zap, Users, MessageSquare } from "lucide-react";
+import { motion } from "framer-motion";
+
 import Link from "next/link";
-import FeaturesCards from "./components/FeaturesCards";
+import FeaturesCards from "./components/common/FeaturesCards";
+import { features, services } from "./components/Home/data";
 
-export default function Home() {
-  const services = [
-    {
-      icon: <Code className="md:w-12 md:h-12 w-8 h-8" />,
-      title: "Custom Development",
-      description:
-        "Tailored solutions that perfectly match your business needs",
-    },
-    {
-      icon: <Palette className="md:w-12 md:h-12 w-8 h-8" />,
-      title: "UI/UX Design",
-      description:
-        "Beautiful, intuitive interfaces that users love to interact with",
-    },
-    {
-      icon: <Globe className="md:w-12 md:h-12 w-8 h-8" />,
-      title: "Web Applications",
-      description: "Powerful, scalable apps that drive business growth",
-    },
-  ];
+const fadeInAnimationValues = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  whileInView: { opacity: 1, y: 0 },
+};
 
-  const features = [
-    {
-      icon: <Zap className="md:w-16 md:h-16 w-10 h-10 mx-auto" />,
-      title: "Lightning Fast",
-      description: "Optimized performance for the best user experience",
-    },
-    {
-      icon: <Users className="md:w-16 md:h-16 w-10 h-10 mx-auto" />,
-      title: "Client-Focused",
-      description: "Your success is our top priority",
-    },
-    {
-      icon: <MessageSquare className="md:w-16 md:h-16 w-10 h-10 mx-auto" />,
-      title: "24/7 Support",
-      description: "Always here when you need us",
-    },
-  ];
-
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    whileInView: { opacity: 1, y: 0 },
-  };
-
+const Home = () => {
   return (
-    <main className="bg-white max-w-7xl w-full mx-auto md:px-2">
+    <div className="bg-white max-w-7xl w-full mx-auto md:px-2">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center md:my-24 my-16">
         <motion.h1
@@ -74,8 +37,8 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
         >
           <h2 className="text-xl md:text-2xl lg:text-3xl px-2 md:px-0">
-            <span className="text-[#E85C3F]">ACHIEVE BUSINESS</span> GROWTH WITH
-            THE STRENGTH
+            <span className="text-light-orange">ACHIEVE BUSINESS</span> GROWTH
+            WITH THE STRENGTH
             <br />
             OF OUR WEB SERVICE
           </h2>
@@ -92,7 +55,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
           >
             <Link href="/about" prefetch={true}>
-              <button className="mt-8 px-8 py-3 border-2 border-[#E85C3F] text-[#E85C3F] rounded-full hover:bg-[#E85C3F] hover:text-white transition-colors duration-200">
+              <button className="mt-8 px-8 py-3 border-2 border-light-orange text-light-orange rounded-full hover:bg-light-orange hover:text-white transition-colors duration-200">
                 <span>SEE HOW</span>
               </button>
             </Link>
@@ -104,7 +67,7 @@ export default function Home() {
       <section className="md:py-20 py-12 bg-gray-50 px-4">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-16"
-          {...fadeIn}
+          {...fadeInAnimationValues}
           transition={{ duration: 0.6, ease: "easeInOut", delay: 0.6 }}
           viewport={{ once: true }}
         >
@@ -126,7 +89,7 @@ export default function Home() {
       <section className="py-20 max-w-7xl mx-auto px-4">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-16"
-          {...fadeIn}
+          {...fadeInAnimationValues}
           transition={{ duration: 0.6, ease: "easeInOut" }}
           viewport={{ once: true }}
         >
@@ -141,22 +104,26 @@ export default function Home() {
       </section>
 
       {/* Get started Section */}
-      <section className="w-full bg-[#E85C3F]">
+      <section className="w-full bg-light-orange">
         <div className="max-w-7xl px-4 py-20 text-center text-white">
           <motion.h2
             className="text-3xl md:text-4xl font-bold mb-4"
-            {...fadeIn}
+            {...fadeInAnimationValues}
           >
             Ready to Start Your Project?
           </motion.h2>
-          <motion.p className="mb-8" {...fadeIn} transition={{ delay: 0.2 }}>
+          <motion.p
+            className="mb-8"
+            {...fadeInAnimationValues}
+            transition={{ delay: 0.2 }}
+          >
             Let&apos;s create something amazing together. Get in touch with us
             today.
           </motion.p>
-          <motion.div {...fadeIn} transition={{ delay: 0.3 }}>
+          <motion.div {...fadeInAnimationValues} transition={{ delay: 0.3 }}>
             <Link
               href="/contact"
-              className="bg-white text-[#E85C3F] px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition-colors duration-200"
+              className="bg-white text-light-orange px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition-colors duration-200"
             >
               Get Started
             </Link>
@@ -171,6 +138,8 @@ export default function Home() {
         animate={{ opacity: 0.3 }}
         transition={{ duration: 1, delay: 0.5 }}
       />
-    </main>
+    </div>
   );
-}
+};
+
+export default Home;

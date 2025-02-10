@@ -9,8 +9,7 @@ import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-
-const routes = ["/", "/about", "/blogs", "/contact"];
+import { routeValues } from "./data";
 
 export default function Navbar() {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -59,7 +58,7 @@ export default function Navbar() {
       <div className="flex flex-row gap-6">
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-[#E85C3F]"
+          className="md:hidden text-light-orange"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -80,16 +79,16 @@ export default function Navbar() {
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-6">
-        {routes.map((route, idx) => (
-          <Link key={idx} href={route} className="relative px-3 py-2 group">
+        {routeValues.map((route, idx) => (
+          <Link key={idx} href={route.path} className="relative px-3 py-2 group">
             <span
               className={`text-lg ${
-                pathname === route ? "text-[#E85C3F]" : "text-gray-600"
-              } group-hover:text-[#E85C3F] transition-colors duration-200`}
+                pathname === route?.path ? "text-light-orange" : "text-gray-600"
+              } group-hover:text-light-orange transition-colors duration-200`}
             >
-              {route.replace("/", "").toUpperCase() || "HOME"}
+              {route?.label}
             </span>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#E85C3F] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-light-orange transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
           </Link>
         ))}
       </div>
@@ -144,7 +143,7 @@ export default function Navbar() {
                   className="flex items-center space-x-4 px-4 py-3"
                 >
                   <div className="relative group">
-                    <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-[#E85C3F] ring-offset-2 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-light-orange ring-offset-2 transition-all duration-300">
                       <Image
                         src={
                           session.user.image ||
@@ -189,7 +188,7 @@ export default function Navbar() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="py-1 text-[#E85C3F] font-bold hover:border-b-2 hover:border-[#E85C3F] transition-colors duration-200"
+                    className="py-1 text-light-orange font-bold hover:border-b-2 hover:border-light-orange transition-colors duration-200"
                     onClick={() => setIsSignOutOpen(!isSignOutOpen)}
                   >
                     Cancel
@@ -197,7 +196,7 @@ export default function Navbar() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="py-1 text-[#E85C3F] font-bold hover:border-b-2 hover:border-[#E85C3F] transition-colors duration-200"
+                    className="py-1 text-light-orange font-bold hover:border-b-2 hover:border-light-orange transition-colors duration-200"
                     onClick={handleSignOut}
                   >
                     Sign Out
@@ -218,7 +217,7 @@ export default function Navbar() {
         >
           <Link
             href="/login"
-            className="border-2 text-gray-600 border-[#E85C3F] px-6 py-2 rounded-full hover:bg-[#E85C3F] hover:text-white transition-colors duration-200"
+            className="border-2 text-gray-600 border-light-orange px-6 py-2 rounded-full hover:bg-light-orange hover:text-white transition-colors duration-200"
           >
             LOGIN
           </Link>
@@ -236,16 +235,16 @@ export default function Navbar() {
             variants={menuVariants}
           >
             <div className="flex flex-col items-center space-y-4 py-6">
-              {routes.map((route, idx) => (
+              {routeValues.map((route, idx) => (
                 <Link
                   key={idx}
-                  href={route}
+                  href={route.path}
                   className={`text-lg font-medium ${
-                    pathname === route ? "text-[#E85C3F]" : "text-gray-600"
-                  } hover:text-[#E85C3F] transition-colors duration-200`}
+                    pathname === route?.path ? "text-light-orange" : "text-gray-600"
+                  } hover:text-light-orange transition-colors duration-200`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {route.replace("/", "").toUpperCase() || "HOME"}
+                  {route.label}
                 </Link>
               ))}
             </div>

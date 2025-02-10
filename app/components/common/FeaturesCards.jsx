@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function FeaturesCards(props) {
+const FeaturesCards = (props) => {
   const { icon, title, description, className } = props;
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
@@ -19,10 +19,11 @@ export default function FeaturesCards(props) {
           y: -10,
         }}
       >
-        <div className="text-[#E85C3F] mb-4">{icon}</div>
+        <div className="text-light-orange mb-4">{icon}</div>
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
         <p className="text-gray-600">{description}</p>
       </motion.div>
     </>
   );
-}
+};
+export default FeaturesCards;

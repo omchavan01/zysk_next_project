@@ -9,17 +9,9 @@ import Link from "next/link";
 import { BeatLoader } from "react-spinners";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
+import { blogPhotos } from "@/app/components/Blogs/data";
 
-const blogPhotos = [
-  "/images/bar_blog.jpg",
-  "/images/laughing_blog.jpg",
-  "/images/mother_blog.jpg",
-  "/images/time_blog.jpg",
-  "/images/books_blog.jpg",
-  "/images/coffee_blog.jpg",
-];
-
-export default function BlogSlug() {
+const BlogSlug = () => {
   const [relatedPost, setRelatedPost] = useState([]);
   const [storedImage, setStoredImage] = useState("");
   const { slug } = useParams();
@@ -60,7 +52,7 @@ export default function BlogSlug() {
     getrelatedPosts();
   }, []);
 
-  const fadeIn = {
+  const fadeInAnimationValues = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
     transition: { duration: 0.6 },
@@ -98,9 +90,9 @@ export default function BlogSlug() {
                   className="inline-flex items-center font-semibold group"
                 >
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  <span className="relative text-[#E85C3F] group-hover:text-[#d54e34] transition-colors duration-200">
+                  <span className="relative text-light-orange group-hover:text-dark-orange transition-colors duration-200">
                     Back to blogs
-                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#d54e34] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-dark-orange transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
                   </span>
                 </Link>
               </motion.div>
@@ -158,7 +150,7 @@ export default function BlogSlug() {
                       key={post.id}
                       initial="initial"
                       whileInView="whileInView"
-                      variants={fadeIn}
+                      variants={fadeInAnimationValues}
                       viewport={{ once: true, amount: 0.3 }}
                       transition={{ duration: 0.6 }}
                       whileHover={{
@@ -193,10 +185,10 @@ export default function BlogSlug() {
                               localStorage.removeItem("image");
                               localStorage.setItem(
                                 "image",
-                                JSON.stringify(randomImage),
+                                JSON.stringify(randomImage)
                               );
                             }}
-                            className="bg-[#E85C3F] text-white px-6 py-2 rounded-full hover:bg-[#d54e34] transition-colors duration-200"
+                            className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"
                           >
                             Read More
                           </motion.button>
@@ -212,4 +204,6 @@ export default function BlogSlug() {
       )}
     </>
   );
-}
+};
+
+export default BlogSlug;

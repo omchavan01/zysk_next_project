@@ -8,27 +8,19 @@ import { Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import { BeatLoader } from "react-spinners";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
+import { blogPhotos } from "../components/Blogs/data";
 
-export default function Blog() {
+const Blog = () => {
   const [page, setPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
   const limit = 6;
-
-  const blogPhotos = [
-    "/images/bar_blog.jpg",
-    "/images/laughing_blog.jpg",
-    "/images/mother_blog.jpg",
-    "/images/time_blog.jpg",
-    "/images/books_blog.jpg",
-    "/images/coffee_blog.jpg",
-  ];
 
   const getPosts = async ({ queryKey }) => {
     try {
       const [_key, pageNumber] = queryKey;
       const skip = (pageNumber - 1) * limit;
       const { data } = await axios.get(
-        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`,
+        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`
       );
       return data.posts;
     } catch (error) {
@@ -84,7 +76,7 @@ export default function Blog() {
         Latest Blog Posts
       </motion.h1>
       {isLoading ? (
-        <div className="flex justify-center items-center min-h-[60vh]">
+        <div className="flex justify-center items-center min-h-60vh">
           <BeatLoader color="#E85C3F" size={30} />
         </div>
       ) : (
@@ -109,10 +101,10 @@ export default function Blog() {
                     width={600}
                     height={300}
                   />
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-[56px]">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-56">
                     {post.title}
                   </h2>
-                  <p className="text-gray-600 mb-4 line-clamp-3 min-h-[72px]">
+                  <p className="text-gray-600 mb-4 line-clamp-3 min-h-72">
                     {post.body}
                   </p>
                   <div className="flex items-center justify-between">
@@ -127,10 +119,10 @@ export default function Blog() {
                         onClick={() => {
                           localStorage.setItem(
                             "image",
-                            JSON.stringify(randomImage),
+                            JSON.stringify(randomImage)
                           );
                         }}
-                        className="bg-[#E85C3F] text-white px-6 py-2 rounded-full hover:bg-[#d54e34] transition-colors duration-200"
+                        className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"
                       >
                         Read More
                       </motion.button>
@@ -153,7 +145,7 @@ export default function Blog() {
           className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 ${
             page === 1
               ? "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
-              : "bg-[#E85C3F] text-white hover:bg-[#d54e34]"
+              : "bg-light-orange text-white hover:bg-dark-orange"
           }`}
         >
           <ChevronLeft size={20} />
@@ -175,8 +167,8 @@ export default function Blog() {
               whileTap={{ scale: 0.95 }}
               className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 ${
                 page === pg
-                  ? "bg-[#e85c3f] text-white border-2 border-[#E85C3F] font-bold"
-                  : "bg-white text-[#E85C3F] hover:bg-[#d54e34] hover:text-white"
+                  ? "bg-light-orange text-white border-2 border-light-orange font-bold"
+                  : "bg-white text-light-orange hover:bg-dark-orange hover:text-white"
               }`}
             >
               {pg}
@@ -193,7 +185,7 @@ export default function Blog() {
           className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 ${
             page === totalPages
               ? "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
-              : "bg-[#E85C3F] text-white hover:bg-[#d54e34]"
+              : "bg-light-orange text-white hover:bg-dark-orange"
           }`}
         >
           <ChevronRight size={20} />
@@ -201,4 +193,6 @@ export default function Blog() {
       </div>
     </div>
   );
-}
+};
+
+export default Blog;

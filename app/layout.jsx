@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navigation/Navbar";
 import "./globals.css";
 import SessionWrapper from "./components/SessionWrapper";
 import { Toaster } from "react-hot-toast";
-import Footer from "./components/Footer";
+import Footer from "./components/navigation/Footer";
 
 export default function RootLayout({ children }) {
   const [queryClient] = useState(() => new QueryClient());

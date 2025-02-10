@@ -1,43 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Rocket, Heart } from "lucide-react";
 import CountUp from "react-countup";
-import FeaturesCards from "../components/FeaturesCards";
+import FeaturesCards from "../components/common/FeaturesCards";
+import { features, stats } from "../components/About/data";
 
-export default function About() {
-  const features = [
-    {
-      icon: <Users className="h-8 w-8" />,
-      title: "Expert Team",
-      description:
-        "Our dedicated team of professionals brings years of experience and passion to every project.",
-    },
-    {
-      icon: <Rocket className="h-8 w-8" />,
-      title: "Innovation First",
-      description:
-        "We stay ahead of the curve, embracing new technologies and creative solutions.",
-    },
-    {
-      icon: <Heart className="h-8 w-8" />,
-      title: "Client-Focused",
-      description:
-        "Your success is our priority. We work closely with you to achieve your goals.",
-    },
-  ];
-
-  const stats = [
-    { number: 478, label: "Projects Completed" },
-    { number: 80, label: "Team Members" },
-    { number: 95, label: "Client Satisfaction" },
-  ];
-
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  };
+const About = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-20">
@@ -69,7 +37,7 @@ export default function About() {
 
       {/* Mission */}
       <motion.div
-        className="bg-[#E85C3F] text-white rounded-lg p-12 text-center mb-16"
+        className="bg-light-orange text-white rounded-lg p-12 text-center mb-16"
         initial={{ opacity: 0, scale: 0.95, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
@@ -93,7 +61,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
             whileInView="whileInView"
           >
-            <div className="text-4xl font-bold text-[#E85C3F] mb-2">
+            <div className="text-4xl font-bold text-light-orange mb-2">
               <CountUp
                 end={stat.number}
                 suffix={stat.suffix || "+"}
@@ -108,4 +76,6 @@ export default function About() {
       </div>
     </div>
   );
-}
+};
+
+export default About;
