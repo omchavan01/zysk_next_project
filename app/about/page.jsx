@@ -6,7 +6,6 @@ import FeaturesCards from "../components/common/FeaturesCards";
 import { features, stats } from "../components/About/data";
 
 const About = () => {
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-20">
       {/* About Web Pundit */}

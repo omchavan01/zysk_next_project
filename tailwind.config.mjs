@@ -17,11 +17,6 @@ export default {
         // Light mode colors
         "light-orange": "#E85C3F",
         "dark-orange": "#D54E34",
-        // Dark mode colors
-        "dark-bg": "#1a202c",
-        "dark-text": "#a0aec0",
-        "dark-light-orange": "#FF7F50",
-        "dark-dark-orange": "#FF4500",
       },
       minHeight: {
         56: "56px",

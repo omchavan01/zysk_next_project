@@ -185,7 +185,7 @@ const BlogSlug = () => {
                               localStorage.removeItem("image");
                               localStorage.setItem(
                                 "image",
-                                JSON.stringify(randomImage)
+                                JSON.stringify(randomImage),
                               );
                             }}
                             className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"

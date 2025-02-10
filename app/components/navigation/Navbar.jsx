@@ -80,7 +80,11 @@ export default function Navbar() {
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-6">
         {routeValues.map((route, idx) => (
-          <Link key={idx} href={route.path} className="relative px-3 py-2 group">
+          <Link
+            key={idx}
+            href={route.path}
+            className="relative px-3 py-2 group"
+          >
             <span
               className={`text-lg ${
                 pathname === route?.path ? "text-light-orange" : "text-gray-600"
@@ -240,7 +244,9 @@ export default function Navbar() {
                   key={idx}
                   href={route.path}
                   className={`text-lg font-medium ${
-                    pathname === route?.path ? "text-light-orange" : "text-gray-600"
+                    pathname === route?.path
+                      ? "text-light-orange"
+                      : "text-gray-600"
                   } hover:text-light-orange transition-colors duration-200`}
                   onClick={() => setIsMenuOpen(false)}
                 >

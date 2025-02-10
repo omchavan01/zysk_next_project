@@ -27,7 +27,7 @@ const Contact = () => {
       setLoading(true);
       await axios.post(
         "https://script.google.com/macros/s/AKfycbxfjKkTTdkNHM5QQ6skXcy9-4AUUl7TNACIjZkL1E2x44evnD2StmGqEtsT6AgPbKJ8/exec",
-        formData
+        formData,
       );
       toast.success("Contact Details sent !!");
       setLoading(false);

@@ -20,7 +20,7 @@ const Blog = () => {
       const [_key, pageNumber] = queryKey;
       const skip = (pageNumber - 1) * limit;
       const { data } = await axios.get(
-        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`
+        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`,
       );
       return data.posts;
     } catch (error) {
@@ -119,7 +119,7 @@ const Blog = () => {
                         onClick={() => {
                           localStorage.setItem(
                             "image",
-                            JSON.stringify(randomImage)
+                            JSON.stringify(randomImage),
                           );
                         }}
                         className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"
