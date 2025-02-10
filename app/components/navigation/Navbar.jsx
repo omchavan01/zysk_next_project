@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import { routeValues } from "./data";
 
@@ -25,7 +25,18 @@ export default function Navbar() {
 
   useEffect(() => {
     if (status === "authenticated" && !localStorage.getItem("loginSuccess")) {
-      toast.success("Logged In !!", { duration: 3000 }, 1500);
+      toast.success("Logged In !!", {
+        duration: 3000,
+        style: {
+          borderRadius: "10px",
+          background: "#121212",
+          color: "#fff",
+          fontFamily: "sans-serif",
+          position: "relative",
+          top: "80px",
+          right: "20px",
+        },
+      });
       localStorage.setItem("loginSuccess", "true");
     }
   }, [status]);
@@ -33,7 +44,18 @@ export default function Navbar() {
   const handleSignOut = async () => {
     setIsSignOutOpen(false);
     localStorage.removeItem("loginSuccess");
-    toast.success("Logged Out !!", { duration: 3500 });
+    toast.success("Logged Out !!", {
+      duration: 3500,
+      style: {
+        borderRadius: "10px",
+        background: "#121212",
+        color: "#fff",
+        fontFamily: "sans-serif",
+        position: "relative",
+        top: "80px",
+        right: "20px",
+      },
+    });
     await signOut({ callbackUrl: "/" });
   };
 
@@ -55,6 +77,7 @@ export default function Navbar() {
 
   return (
     <nav className="border-b bg-white max-w-7xl mx-auto px-4 flex items-center justify-between h-20">
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="flex flex-row gap-6">
         {/* Mobile Menu Button */}
         <button

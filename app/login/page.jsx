@@ -7,7 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import axios from "axios";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { BeatLoader } from "react-spinners";
 
 // Social auth providers
@@ -65,7 +65,18 @@ const Login = () => {
         setLoading(false);
       }
     } catch (error) {
-      toast.error("Login failed!", { duration: 2000 });
+      toast.error("Login failed!", {
+        duration: 2000,
+        style: {
+          borderRadius: "10px",
+          background: "#121212",
+          color: "#fff",
+          fontFamily: "sans-serif",
+          position: "relative",
+          top: "80px",
+          right: "20px",
+        },
+      });
       setLoading(false);
     }
     reset();
@@ -84,6 +95,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center bg-white px-4 my-28">
+      <Toaster position="top-right" reverseOrder={false} />
       {/* Credentials Providers Form */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}

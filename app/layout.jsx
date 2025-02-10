@@ -17,19 +17,6 @@ export default function RootLayout({ children }) {
         <SessionWrapper>
           <QueryClientProvider client={queryClient}>
             <Navbar />
-            <Toaster
-              position="top-right"
-              reverseOrder={false}
-              toastOptions={{
-                borderRadius: "10px",
-                background: "#121212",
-                color: "#fff",
-                fontFamily: "sans-serif",
-                position: "relative",
-                top: "80px",
-                right: "20px",
-              }}
-            />
             <main>{children}</main>
             <Footer />
           </QueryClientProvider>

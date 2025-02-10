@@ -4,7 +4,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock } from "lucide-react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
 
@@ -27,12 +27,32 @@ const Contact = () => {
       setLoading(true);
       await axios.post(
         "https://script.google.com/macros/s/AKfycbxfjKkTTdkNHM5QQ6skXcy9-4AUUl7TNACIjZkL1E2x44evnD2StmGqEtsT6AgPbKJ8/exec",
-        formData,
+        formData
       );
-      toast.success("Contact Details sent !!");
+      toast.success("Contact Details sent !!", {
+        style: {
+          borderRadius: "10px",
+          background: "#121212",
+          color: "#fff",
+          fontFamily: "sans-serif",
+          position: "relative",
+          top: "80px",
+          right: "20px",
+        },
+      });
       setLoading(false);
     } catch (error) {
-      toast.error("Retry: Sending failed !!");
+      toast.error("Retry: Sending failed !!", {
+        style: {
+          borderRadius: "10px",
+          background: "#121212",
+          color: "#fff",
+          fontFamily: "sans-serif",
+          position: "relative",
+          top: "80px",
+          right: "20px",
+        },
+      });
       setLoading(false);
     }
     reset();
@@ -40,6 +60,7 @@ const Contact = () => {
 
   return (
     <div className="max-w-7xl mx-auto md:py-20 py-16 px-4">
+      <Toaster position="top-right" reverseOrder={false} />
       <motion.div
         className="text-center md:mb-16 mb-10"
         initial={{ opacity: 0, y: 20 }}
