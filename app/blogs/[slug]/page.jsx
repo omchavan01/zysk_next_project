@@ -71,6 +71,7 @@ const BlogSlug = () => {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 bg-white">
+          {/* Particular blog post */}
           <motion.article
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -185,7 +186,7 @@ const BlogSlug = () => {
                               localStorage.removeItem("image");
                               localStorage.setItem(
                                 "image",
-                                JSON.stringify(randomImage),
+                                JSON.stringify(randomImage)
                               );
                             }}
                             className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"

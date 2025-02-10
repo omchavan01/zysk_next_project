@@ -29,11 +29,13 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
+      // Make a request to the proxy API
       const response = await axios.post("/api/proxy", {
         username: data.username,
         password: data.password,
       });
 
+      // If response has access token
       if (response?.data?.accessToken) {
         const token = response?.data?.accessToken;
         const userResponse = await axios.get("https://dummyjson.com/users", {
@@ -42,24 +44,24 @@ const Login = () => {
           },
         });
 
+        // Clear session and local storage
         sessionStorage.clear();
         localStorage.clear();
+
+        // Store user details in session storage
         const details = {
           token: token,
           username: userResponse?.data?.username,
           password: userResponse?.data?.password,
           image: userResponse?.data?.image,
         };
-
+        // Sign in using credentials in NextAuth
         signIn("credentials", {
           isToken: true,
           data: JSON.stringify(details),
           redirect: true,
           callbackUrl: "/",
         });
-        setLoading(false);
-      } else {
-        toast.error("Access token not found!", { duration: 2000 });
         setLoading(false);
       }
     } catch (error) {
@@ -82,6 +84,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center bg-white px-4 my-28">
+      {/* Credentials Providers Form */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -166,6 +169,7 @@ const Login = () => {
           </motion.button>
         </motion.form>
 
+        {/* Oauth Providers Button */}
         <motion.div
           className="mt-8 text-center"
           initial={{ opacity: 0 }}

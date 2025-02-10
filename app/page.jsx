@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-
 import Link from "next/link";
 import FeaturesCards from "./components/common/FeaturesCards";
 import { features, services } from "./components/Home/data";
