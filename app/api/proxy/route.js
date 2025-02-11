@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
     // Parse the request body
     const body = await req.json();

@@ -1,18 +1,6 @@
 import { Users, Rocket, Heart } from "lucide-react";
-import React, { ReactNode } from "react";
 
-interface Feature {
-  icon: ReactNode;
-  title: string;
-  description: string;
-}
-
-interface Stat {
-  number: number;
-  label: string;
-}
-
-export const features: Feature[] = [
+export const features = [
   {
     icon: <Users className="h-8 w-8" />,
     title: "Expert Team",
@@ -33,7 +21,7 @@ export const features: Feature[] = [
   },
 ];
 
-export const stats: Stat[] = [
+export const stats = [
   { number: 478, label: "Projects Completed" },
   { number: 80, label: "Team Members" },
   { number: 95, label: "Client Satisfaction" },
