@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,28 +11,12 @@ import toast, { Toaster } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import { routeValues } from "./data";
 
-interface routeProps {
-  path: string;
-  label: string;
-}
+export default function Navbar() {
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [isSignOutOpen, setIsSignOutOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-interface sessionValues {
-  user?: {
-    username?: string;
-    email?: string;
-    image?: string;
-  };
-}
-
-const Navbar: React.FC = () => {
-  const [isHydrated, setIsHydrated] = useState<boolean>(false);
-  const [isSignOutOpen, setIsSignOutOpen] = useState<boolean>(false);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
-  const { data: session, status } = useSession() as {
-    data: sessionValues | null;
-    status: string;
-  };
+  const { data: session, status } = useSession();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -56,8 +40,6 @@ const Navbar: React.FC = () => {
       localStorage.setItem("loginSuccess", "true");
     }
   }, [status]);
-
-  const sessionValues: sessionValues = session || {};
 
   const handleSignOut = async () => {
     setIsSignOutOpen(false);
@@ -120,7 +102,7 @@ const Navbar: React.FC = () => {
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-6">
-        {routeValues.map((route: routeProps, idx: number) => (
+        {routeValues.map((route, idx) => (
           <Link
             key={idx}
             href={route.path}
@@ -191,7 +173,7 @@ const Navbar: React.FC = () => {
                     <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-light-orange ring-offset-2 transition-all duration-300">
                       <Image
                         src={
-                          sessionValues.user?.image ||
+                          session.user.image ||
                           "/images/default_profile_photo.png"
                         }
                         alt="Profile Picture"
@@ -208,7 +190,7 @@ const Navbar: React.FC = () => {
                       transition={{ delay: 0.2 }}
                       className="text-lg font-semibold text-gray-800"
                     >
-                      {sessionValues.user?.username}
+                      {session.user.username}
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -216,7 +198,7 @@ const Navbar: React.FC = () => {
                       transition={{ delay: 0.3 }}
                       className="text-sm text-gray-500"
                     >
-                      {sessionValues.user?.email}
+                      {session.user.email}
                     </motion.p>
                   </div>
                 </motion.div>
@@ -280,7 +262,7 @@ const Navbar: React.FC = () => {
             variants={menuVariants}
           >
             <div className="flex flex-col items-center space-y-4 py-6">
-              {routeValues.map((route: routeProps, idx: number) => (
+              {routeValues.map((route, idx) => (
                 <Link
                   key={idx}
                   href={route.path}
@@ -300,6 +282,4 @@ const Navbar: React.FC = () => {
       </AnimatePresence>
     </nav>
   );
-};
-
-export default Navbar;
+}

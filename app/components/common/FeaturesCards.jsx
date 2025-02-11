@@ -1,14 +1,6 @@
 import { motion } from "framer-motion";
-import React, { ReactNode } from "react";
 
-interface FeaturesCardsProps {
-  icon: ReactNode;
-  title: string;
-  description: string;
-  className: string;
-}
-
-const FeaturesCards: React.FC<FeaturesCardsProps> = (props) => {
+const FeaturesCards = (props) => {
   const { icon, title, description, className } = props;
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
