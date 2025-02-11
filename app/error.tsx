@@ -1,8 +1,13 @@
 "use client";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
-const Error = ({ error, reset }) => {
+interface ErrorProps {
+  error: Error;
+  reset: () => void;
+}
+
+const Error: React.FC<ErrorProps> = ({ error, reset }) => {
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -29,7 +34,7 @@ const Error = ({ error, reset }) => {
         >
           <button
             className="text-white text-center bg-light-orange px-8 py-3 rounded-full text-lg font-semibold transition-colors duration-200"
-            onClick={() => reset()}
+            onClick={reset}
           >
             Try again
           </button>

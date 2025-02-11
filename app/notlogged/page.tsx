@@ -1,9 +1,9 @@
 "use client";
-
+import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-const Notlogged = () => {
+const Notlogged: React.FC = () => {
   return (
     <div className="bg-gray-100 max-w-7xl mx-auto h-screen flex justify-center items-start px-4">
       <div className="w-full max-w-md p-8 rounded-2xl bg-white shadow-lg transition-all mt-20">

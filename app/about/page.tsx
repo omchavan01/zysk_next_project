@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import FeaturesCards from "../components/common/FeaturesCards";
 import { features, stats } from "../components/About/data";
+import React from "react";
 
-const About = () => {
+const About: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-20">
       {/* About Web Pundit */}
@@ -63,7 +64,7 @@ const About = () => {
             <div className="text-4xl font-bold text-light-orange mb-2">
               <CountUp
                 end={stat.number}
-                suffix={stat.suffix || "+"}
+                suffix={"+"}
                 duration={2.5}
                 enableScrollSpy
                 scrollSpyOnce

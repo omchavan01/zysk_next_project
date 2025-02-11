@@ -3,45 +3,58 @@
 import { motion } from "framer-motion";
 import { Eye, ArrowLeft } from "lucide-react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { BeatLoader } from "react-spinners";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { blogPhotos } from "@/app/components/Blogs/data";
+import { blogPhotos } from "../../components/Blogs/data";
 
-const BlogSlug = () => {
-  const [relatedPost, setRelatedPost] = useState([]);
-  const [storedImage, setStoredImage] = useState("");
+interface postValues {
+  id: number;
+  title: string;
+  body: string;
+  views: number;
+}
+
+const BlogSlug: React.FC = () => {
+  const [relatedPost, setRelatedPost] = useState<Array<postValues>>([]);
+  const [storedImage, setStoredImage] = useState<string>("");
   const { slug } = useParams();
 
   useEffect(() => {
     const imageValue = localStorage.getItem("image");
-    setStoredImage(JSON.parse(imageValue));
+    if (imageValue) {
+      setStoredImage(JSON.parse(imageValue));
+    }
   }, [slug]);
 
-  const getPost = async () => {
+  const getPost = async (): Promise<postValues> => {
     try {
-      const { data } = await axios.get(`https://dummyjson.com/posts/${slug}`);
+      const { data } = await axios.get<postValues>(
+        `https://dummyjson.com/posts/${slug}`
+      );
       return data;
     } catch (error) {
       console.error("Error fetching post:", error);
-      return null;
+      return error;
     }
   };
 
-  const { data: post, isLoading } = useQuery({
+  const { data: post, isLoading } = useQuery<postValues>({
     queryKey: ["post", `${slug}`],
     queryFn: () => getPost(),
     enabled: !!slug,
     staleTime: 30000,
-    keepPreviousData: true,
+    placeholderData: (previousData) => previousData,
   });
 
   const getrelatedPosts = async () => {
     try {
-      const response = await axios.get(`https://dummyjson.com/posts/`);
+      const response = await axios.get<{ posts: postValues[] }>(
+        `https://dummyjson.com/posts/`
+      );
       setRelatedPost(response.data.posts);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -105,7 +118,7 @@ const BlogSlug = () => {
                 transition={{ delay: 0.3 }}
                 className="text-4xl font-bold text-gray-900 mb-4"
               >
-                {post.title}
+                {post?.title}
               </motion.h1>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -114,7 +127,7 @@ const BlogSlug = () => {
                 className="flex items-center gap-2 text-gray-600 mb-8 border-b border-gray-200 pb-6"
               >
                 <Eye className="h-5 w-5" />
-                <span>{post.views} views</span>
+                <span>{post?.views} views</span>
               </motion.div>
               {storedImage !== "" && (
                 <motion.img
@@ -134,7 +147,7 @@ const BlogSlug = () => {
                   className="prose prose-lg max-w-none"
                 >
                   <p className="text-gray-700 leading-relaxed text-lg text-justify">
-                    {post.body}
+                    {post?.body}
                   </p>
                 </motion.div>
               </div>
@@ -148,7 +161,7 @@ const BlogSlug = () => {
                   const randomImage = blogPhotos[index % blogPhotos.length];
                   return (
                     <motion.div
-                      key={post.id}
+                      key={post?.id}
                       initial="initial"
                       whileInView="whileInView"
                       variants={fadeInAnimationValues}
@@ -178,7 +191,7 @@ const BlogSlug = () => {
                           <Eye className="h-4 w-4" />
                           <span>{post.views} views</span>
                         </div>
-                        <Link href={`/blogs/${post.id}`}>
+                        <Link href={`/blogs/${post?.id}`}>
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}

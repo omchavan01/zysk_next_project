@@ -3,30 +3,36 @@
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { BeatLoader } from "react-spinners";
 
+// Define form input types
+interface FormValues {
+  username: string;
+  password: string;
+}
+
 // Social auth providers
-const socialAuthProviders = [
+const socialAuthProviders: { name: string; icon: string }[] = [
   { name: "Google", icon: "/images/google.png" },
   { name: "GitHub", icon: "/images/github.png" },
 ];
 
-const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+const Login: React.FC = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm<FormValues>();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormValues) => {
     try {
       setLoading(true);
       // Make a request to the proxy API
@@ -64,7 +70,7 @@ const Login = () => {
         });
         setLoading(false);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error("Login failed!", {
         duration: 2000,
         style: {
@@ -78,24 +84,25 @@ const Login = () => {
         },
       });
       setLoading(false);
+      return error;
     }
     reset();
   };
 
-  const OAuthSignIn = async (provider) => {
+  const OAuthSignIn = async (provider: string) => {
     try {
       setLoading(true);
       await signIn(provider, { callbackUrl: "/" });
       setLoading(false);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error("Login failed!", { duration: 2000 });
       setLoading(false);
+      return error;
     }
   };
 
   return (
     <div className="flex items-center justify-center bg-white px-4 my-28">
-      <Toaster position="top-right" reverseOrder={false} />
       {/* Credentials Providers Form */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}

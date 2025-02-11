@@ -4,20 +4,26 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock } from "lucide-react";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import toast from "react-hot-toast";
+import React, { useState } from "react";
 import { BeatLoader } from "react-spinners";
 
-const Contact = () => {
-  const [loading, setLoading] = useState(false);
+interface FormValues {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const Contact: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm<FormValues>();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("email", data.email);
@@ -41,7 +47,7 @@ const Contact = () => {
         },
       });
       setLoading(false);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error("Retry: Sending failed !!", {
         style: {
           borderRadius: "10px",
@@ -54,13 +60,13 @@ const Contact = () => {
         },
       });
       setLoading(false);
+      return error;
     }
     reset();
   };
 
   return (
     <div className="max-w-7xl mx-auto md:py-20 py-16 px-4">
-      <Toaster position="top-right" reverseOrder={false} />
       <motion.div
         className="text-center md:mb-16 mb-10"
         initial={{ opacity: 0, y: 20 }}
