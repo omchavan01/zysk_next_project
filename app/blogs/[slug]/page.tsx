@@ -38,7 +38,7 @@ const BlogSlug: React.FC = () => {
       return data;
     } catch (error) {
       console.error("Error fetching post:", error);
-      return error;
+      throw error;
     }
   };
 
