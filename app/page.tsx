@@ -1,9 +1,15 @@
 "use client";
-
+import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import FeaturesCards from "./components/common/FeaturesCards";
 import { features, services } from "./components/Home/data";
+
+interface FeatureServiceItem {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
 
 const fadeInAnimationValues = {
   initial: { opacity: 0, y: 20 },
@@ -11,7 +17,7 @@ const fadeInAnimationValues = {
   whileInView: { opacity: 1, y: 0 },
 };
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div className="bg-white max-w-7xl w-full mx-auto md:px-2">
       {/* Hero Section */}
@@ -74,7 +80,7 @@ const Home = () => {
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {services.map((service: FeatureServiceItem, index: number) => (
             <FeaturesCards
               key={index}
               {...service}
@@ -96,7 +102,7 @@ const Home = () => {
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+          {features.map((feature: FeatureServiceItem, index: number) => (
             <FeaturesCards key={index} {...feature} className="text-center" />
           ))}
         </div>

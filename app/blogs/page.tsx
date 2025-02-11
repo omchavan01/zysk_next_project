@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Eye, ChevronLeft, ChevronRight } from "lucide-react";
@@ -10,32 +10,44 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { blogPhotos } from "../components/Blogs/data";
 
-const Blog = () => {
-  const [page, setPage] = useState(1);
-  const [totalPosts, setTotalPosts] = useState(0);
+interface postValues {
+  id: number;
+  title: string;
+  body: string;
+  views: number;
+}
+
+const Blog: React.FC = () => {
+  const [page, setPage] = useState<number>(1);
+  const [totalPosts, setTotalPosts] = useState<number>(0);
   const limit = 6;
 
-  const getPosts = async ({ queryKey }) => {
+  const getPosts = async ({
+    queryKey,
+  }: {
+    queryKey: readonly [string, number];
+  }): Promise<postValues[]> => {
     try {
-      const [_key, pageNumber] = queryKey;
+      const [, pageNumber] = queryKey;
       const skip = (pageNumber - 1) * limit;
       const { data } = await axios.get(
-        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`,
+        `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`
       );
       return data.posts;
     } catch (error) {
       console.error("Error fetching posts:", error);
+      return [];
     }
   };
 
   const { data: posts, isLoading } = useQuery({
-    queryKey: ["posts", page],
+    queryKey: ["posts", page] as const,
     queryFn: getPosts,
     staleTime: 30000,
-    keepPreviousData: true,
+    placeholderData: (previousData) => previousData,
   });
 
-  const getTotalPosts = async () => {
+  const getTotalPosts = async (): Promise<void> => {
     try {
       const { data } = await axios.get(`https://dummyjson.com/posts/`);
       setTotalPosts(data.total);
@@ -48,9 +60,9 @@ const Blog = () => {
     getTotalPosts();
   }, []);
 
-  const totalPages = Math.ceil(totalPosts / limit);
+  const totalPages: number = Math.ceil(totalPosts / limit);
 
-  const getVisiblePages = () => {
+  const getVisiblePages = (): number[] => {
     let start = Math.max(1, page - 2);
     let end = Math.min(totalPages, page + 2);
 
@@ -84,55 +96,56 @@ const Blog = () => {
       ) : (
         <div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts?.map((post, index) => {
-              const randomImage = blogPhotos[index % blogPhotos.length];
-              return (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6 }}
-                  whileHover={{ scale: 1.05, y: -10 }}
-                  className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-100"
-                >
-                  <Image
-                    src={randomImage}
-                    alt="Blog Post"
-                    className="rounded-lg mb-4"
-                    width={600}
-                    height={300}
-                  />
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-56">
-                    {post.title}
-                  </h2>
-                  <p className="text-gray-600 mb-4 line-clamp-3 min-h-72">
-                    {post.body}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-gray-500">
-                      <Eye className="h-4 w-4" />
-                      <span>{post.views} views</span>
+            {Array.isArray(posts) &&
+              posts.map((post, index) => {
+                const randomImage = blogPhotos[index % blogPhotos.length];
+                return (
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6 }}
+                    whileHover={{ scale: 1.05, y: -10 }}
+                    className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-100"
+                  >
+                    <Image
+                      src={randomImage}
+                      alt="Blog Post"
+                      className="rounded-lg mb-4"
+                      width={600}
+                      height={300}
+                    />
+                    <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-56">
+                      {post.title}
+                    </h2>
+                    <p className="text-gray-600 mb-4 line-clamp-3 min-h-72">
+                      {post.body}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-gray-500">
+                        <Eye className="h-4 w-4" />
+                        <span>{post.views} views</span>
+                      </div>
+                      <Link href={`/blogs/${post.id}`}>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => {
+                            localStorage.setItem(
+                              "image",
+                              JSON.stringify(randomImage)
+                            );
+                          }}
+                          className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"
+                        >
+                          Read More
+                        </motion.button>
+                      </Link>
                     </div>
-                    <Link href={`/blogs/${post.id}`}>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => {
-                          localStorage.setItem(
-                            "image",
-                            JSON.stringify(randomImage),
-                          );
-                        }}
-                        className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"
-                      >
-                        Read More
-                      </motion.button>
-                    </Link>
-                  </div>
-                </motion.div>
-              );
-            })}
+                  </motion.div>
+                );
+              })}
           </div>
         </div>
       )}

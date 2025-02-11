@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,12 +11,28 @@ import toast, { Toaster } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import { routeValues } from "./data";
 
-export default function Navbar() {
-  const [isHydrated, setIsHydrated] = useState(false);
-  const [isSignOutOpen, setIsSignOutOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+interface routeProps {
+  path: string;
+  label: string;
+}
 
-  const { data: session, status } = useSession();
+interface sessionValues {
+  user?: {
+    username?: string;
+    email?: string;
+    image?: string;
+  };
+}
+
+const Navbar: React.FC = () => {
+  const [isHydrated, setIsHydrated] = useState<boolean>(false);
+  const [isSignOutOpen, setIsSignOutOpen] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  const { data: session, status } = useSession() as {
+    data: sessionValues | null;
+    status: string;
+  };
   const pathname = usePathname();
 
   useEffect(() => {
@@ -40,6 +56,8 @@ export default function Navbar() {
       localStorage.setItem("loginSuccess", "true");
     }
   }, [status]);
+
+  const sessionValues: sessionValues = session || {};
 
   const handleSignOut = async () => {
     setIsSignOutOpen(false);
@@ -102,7 +120,7 @@ export default function Navbar() {
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-6">
-        {routeValues.map((route, idx) => (
+        {routeValues.map((route: routeProps, idx: number) => (
           <Link
             key={idx}
             href={route.path}
@@ -173,7 +191,7 @@ export default function Navbar() {
                     <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-light-orange ring-offset-2 transition-all duration-300">
                       <Image
                         src={
-                          session.user.image ||
+                          sessionValues.user?.image ||
                           "/images/default_profile_photo.png"
                         }
                         alt="Profile Picture"
@@ -190,7 +208,7 @@ export default function Navbar() {
                       transition={{ delay: 0.2 }}
                       className="text-lg font-semibold text-gray-800"
                     >
-                      {session.user.username}
+                      {sessionValues.user?.username}
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -198,7 +216,7 @@ export default function Navbar() {
                       transition={{ delay: 0.3 }}
                       className="text-sm text-gray-500"
                     >
-                      {session.user.email}
+                      {sessionValues.user?.email}
                     </motion.p>
                   </div>
                 </motion.div>
@@ -262,7 +280,7 @@ export default function Navbar() {
             variants={menuVariants}
           >
             <div className="flex flex-col items-center space-y-4 py-6">
-              {routeValues.map((route, idx) => (
+              {routeValues.map((route: routeProps, idx: number) => (
                 <Link
                   key={idx}
                   href={route.path}
@@ -282,4 +300,6 @@ export default function Navbar() {
       </AnimatePresence>
     </nav>
   );
-}
+};
+
+export default Navbar;

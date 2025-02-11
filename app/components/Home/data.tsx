@@ -1,7 +1,14 @@
 import { Code, Palette, Globe, Zap, Users, MessageSquare } from "lucide-react";
+import React,{ ReactNode } from "react";
+
+interface ServicesFeatures {
+  icon: ReactNode;
+  title: string;
+  description: string;
+}
 
 // Home page services
-export const services = [
+export const services: ServicesFeatures[] = [
   {
     icon: <Code className="md:w-12 md:h-12 w-8 h-8" />,
     title: "Custom Development",
@@ -20,8 +27,8 @@ export const services = [
   },
 ];
 
-//   Home page features
-export const features = [
+// Home page features
+export const features: ServicesFeatures[] = [
   {
     icon: <Zap className="md:w-16 md:h-16 w-10 h-10 mx-auto" />,
     title: "Lightning Fast",

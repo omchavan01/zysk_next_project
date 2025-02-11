@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { footerLinks } from "./data";
+import React from "react";
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="bg-[#eee] max-w-7xl mx-auto text-center pb-2">
       <motion.div
