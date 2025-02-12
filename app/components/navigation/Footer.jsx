@@ -7,7 +7,7 @@ import { footerLinks } from "./data";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#eee] max-w-7xl mx-auto text-center pb-2">
+    <footer className="bg-light-gray max-w-7xl mx-auto text-center pb-2">
       <motion.div
         className="grid grid-cols-1 gap-8 px-4 py-6 lg:py-8 md:grid-cols-2"
         initial={{ opacity: 0, y: 20 }}

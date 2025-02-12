@@ -79,7 +79,7 @@ const Blog = () => {
       {/* 6 Blogs section */}
       {isLoading ? (
         <div className="flex justify-center items-center min-h-60vh">
-          <BeatLoader color="#E85C3F" size={30} />
+          <BeatLoader color="[#E85C3F]" size={30} />
         </div>
       ) : (
         <div>

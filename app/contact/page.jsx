@@ -4,9 +4,9 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock } from "lucide-react";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
+import { showToastFromComponent } from "../lib/toastUtils";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -27,32 +27,12 @@ const Contact = () => {
       setLoading(true);
       await axios.post(
         "https://script.google.com/macros/s/AKfycbxfjKkTTdkNHM5QQ6skXcy9-4AUUl7TNACIjZkL1E2x44evnD2StmGqEtsT6AgPbKJ8/exec",
-        formData
+        formData,
       );
-      toast.success("Contact Details sent !!", {
-        style: {
-          borderRadius: "10px",
-          background: "#121212",
-          color: "#fff",
-          fontFamily: "sans-serif",
-          position: "relative",
-          top: "80px",
-          right: "20px",
-        },
-      });
+      showToastFromComponent("success", "Contact Details sent !!", 0);
       setLoading(false);
     } catch (error) {
-      toast.error("Retry: Sending failed !!", {
-        style: {
-          borderRadius: "10px",
-          background: "#121212",
-          color: "#fff",
-          fontFamily: "sans-serif",
-          position: "relative",
-          top: "80px",
-          right: "20px",
-        },
-      });
+      showToastFromComponent("error", "Retry: Sending failed !!", 0);
       setLoading(false);
     }
     reset();
@@ -60,7 +40,6 @@ const Contact = () => {
 
   return (
     <div className="max-w-7xl mx-auto md:py-20 py-16 px-4">
-      <Toaster position="top-right" reverseOrder={false} />
       <motion.div
         className="text-center md:mb-16 mb-10"
         initial={{ opacity: 0, y: 20 }}
@@ -86,7 +65,7 @@ const Contact = () => {
                 type="text"
                 placeholder="Your name"
                 autoComplete="off"
-                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-light-orange ${
+                className={`w-full px-4 py-3 rounded-lg border hover:border-light-orange focus:border-2 focus:border-light-orange ${
                   errors.name ? "border-red-500" : "border-gray-300"
                 } focus:ring-light-orange outline-none`}
                 {...register("name", {
@@ -109,7 +88,7 @@ const Contact = () => {
                 type="email"
                 placeholder="Your email address"
                 autoComplete="off"
-                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-light-orange ${
+                className={`w-full px-4 py-3 rounded-lg border hover:border-light-orange focus:border-2 focus:border-light-orange ${
                   errors.email ? "border-red-500" : "border-gray-300"
                 } focus:ring-light-orange outline-none`}
                 {...register("email", {
@@ -131,7 +110,7 @@ const Contact = () => {
                 placeholder="Write your message..."
                 autoComplete="off"
                 rows={6}
-                className={`w-full px-4 py-3 rounded-lg border hover:border-[#e96533] focus:border-2 focus:border-light-orange ${
+                className={`w-full px-4 py-3 rounded-lg border hover:border-light-orange focus:border-2 focus:border-light-orange ${
                   errors.message ? "border-red-500" : "border-gray-300"
                 } focus:ring-light-orange outline-none`}
                 {...register("message", {

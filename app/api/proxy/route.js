@@ -12,7 +12,7 @@ export async function POST(req) {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     // Return the response from the API
     return new Response(JSON.stringify(response.data), {

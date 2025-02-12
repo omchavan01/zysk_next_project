@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 import { Eye, ArrowLeft } from "lucide-react";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -10,6 +10,7 @@ import { BeatLoader } from "react-spinners";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { blogPhotos } from "@/app/components/Blogs/data";
+import Comment from "@/app/components/Blogs/Comment";
 
 const BlogSlug = () => {
   const [relatedPost, setRelatedPost] = useState([]);
@@ -139,7 +140,6 @@ const BlogSlug = () => {
                 </motion.div>
               </div>
             </div>
-
             {/* Related Articles */}
             <div className="max-w-6xl mx-auto px-4 mt-10">
               <div className="text-3xl font-bold mb-10">Related Articles</div>
@@ -167,10 +167,10 @@ const BlogSlug = () => {
                         width={600}
                         height={300}
                       />
-                      <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-[56px]">
+                      <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-56">
                         {post.title}
                       </h2>
-                      <p className="text-gray-600 mb-4 line-clamp-3 min-h-[72px]">
+                      <p className="text-gray-600 mb-4 line-clamp-3 min-h-72">
                         {post.body}
                       </p>
                       <div className="flex items-center justify-between">
@@ -186,7 +186,7 @@ const BlogSlug = () => {
                               localStorage.removeItem("image");
                               localStorage.setItem(
                                 "image",
-                                JSON.stringify(randomImage)
+                                JSON.stringify(randomImage),
                               );
                             }}
                             className="bg-light-orange text-white px-6 py-2 rounded-full hover:bg-dark-orange transition-colors duration-200"
@@ -200,6 +200,8 @@ const BlogSlug = () => {
                 })}
               </div>
             </div>
+            {/* Comments Section */}
+            <Comment slug={post.id} />
           </motion.article>
         </div>
       )}

@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <SessionWrapper>
+          <Toaster position="top-right" reverseOrder={false} />
           <QueryClientProvider client={queryClient}>
             <Navbar />
             <main>{children}</main>

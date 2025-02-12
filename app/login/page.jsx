@@ -7,7 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import { showToast } from "../lib/toastUtils";
 import { BeatLoader } from "react-spinners";
 
 // Social auth providers
@@ -65,18 +65,7 @@ const Login = () => {
         setLoading(false);
       }
     } catch (error) {
-      toast.error("Login failed!", {
-        duration: 2000,
-        style: {
-          borderRadius: "10px",
-          background: "#121212",
-          color: "#fff",
-          fontFamily: "sans-serif",
-          position: "relative",
-          top: "80px",
-          right: "20px",
-        },
-      });
+      showToast("error", "Login failed!", 2000);
       setLoading(false);
     }
     reset();
@@ -88,14 +77,13 @@ const Login = () => {
       await signIn(provider, { callbackUrl: "/" });
       setLoading(false);
     } catch (error) {
-      toast.error("Login failed!", { duration: 2000 });
+      showToast("error", "Login failed!", 2000);
       setLoading(false);
     }
   };
 
   return (
     <div className="flex items-center justify-center bg-white px-4 my-28">
-      <Toaster position="top-right" reverseOrder={false} />
       {/* Credentials Providers Form */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -173,7 +161,7 @@ const Login = () => {
 
           <motion.button
             type="submit"
-            className="w-full py-3 bg-light-orange text-white rounded-lg font-medium hover:bg-[#D14A2F] transition-colors"
+            className="w-full py-3 bg-light-orange text-white rounded-lg font-medium hover:bg-dark-orange transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -193,7 +181,7 @@ const Login = () => {
             {socialAuthProviders.map((social, index) => (
               <motion.button
                 key={social.name}
-                className="p-3 rounded-full border border-gray-300 hover:border-[1px] hover:border-[#e85633] transition-colors"
+                className="p-3 rounded-full border border-gray-300 hover:border-1 hover:border-light-orange transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
